@@ -1,22 +1,21 @@
 export const colors = {
-  background: "#FFFFFF",
-  foreground: "#F6F7FB",
-  outline: "#EBEBEB",
-  error: "#FF4747",
-
-  primary: {
-    default: "#3E7FFF",
-    lighter: "#8EB5FF",
-    darker: "#2C63CC",
+  main: {
+    darkGrey: "#818181",
+    grey: "#c3c3c3",
+    white: "#fdffff",
+    blue: "#010081",
+    green: "#008080",
+    black: "#000000",
+    pink: "#ff0081",
   },
-
-  text: {
-    primary: "#000000",
-    secondary: "#7D8087",
+  logo: {
+    orange: "#f3632e",
+    blue: "#3d87cf",
+    yellow: "#fac705",
+    green: "#66c557",
   },
-
-  navbar: {
-    color: "#C9C9C9",
-    activeColor: "#3E4356",
+  taeguk: {
+    blue: "#0047a0",
+    red: "#cd2e3a",
   },
 };
