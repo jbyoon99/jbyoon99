@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { StatusBar } from "@/components";
 import { levi, libre } from "@/styles";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         className={`${levi.variable} ${libre.variable}`}
       >
       </div>
+        <StatusBar />
     </>
   );
 }
