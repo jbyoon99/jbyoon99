@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export const Background = styled.div`
   margin: auto;
-  height: 100vh;
+  height: 100%;
   aspect-ratio: 4/3;
   background-color: ${colors.main.green};
   display: flex;
@@ -15,6 +15,7 @@ export const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: var(--font-libre);
 `;
 
 export const Logo = styled.img`
