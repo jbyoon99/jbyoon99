@@ -1,1 +1,1 @@
-export * from "./Background";
+export * from "./StatusBar";

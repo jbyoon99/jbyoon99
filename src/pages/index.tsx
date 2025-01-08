@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Background } from "@/components";
 import { levi, libre } from "@/styles";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
         style={{ height: "100%" }}
         className={`${levi.variable} ${libre.variable}`}
       >
-        <Background />
       </div>
     </>
   );
