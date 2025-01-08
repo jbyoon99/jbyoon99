@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Global } from "@emotion/react";
-import { globalStyle } from "@/styles";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +13,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Global styles={globalStyle} />
       <body>{children}</body>
     </html>
   );
