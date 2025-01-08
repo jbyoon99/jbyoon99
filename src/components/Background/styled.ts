@@ -1,5 +1,5 @@
 import { colors } from "../../styles";
-import { styled } from "@pigment-css/react";
+import styled from "@emotion/styled";
 
 export const Background = styled.div`
   margin: auto;
