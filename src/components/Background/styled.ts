@@ -15,9 +15,15 @@ export const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-libre);
 `;
 
 export const Logo = styled.img`
   height: 40vh;
+  margin-bottom: -2rem;
 `;
