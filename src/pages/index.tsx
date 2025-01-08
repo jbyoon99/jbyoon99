@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { StatusBar } from "@/components";
 import { levi, libre } from "@/styles";
+import * as S from "./styled";
 
 export default function Home() {
   return (
@@ -14,12 +15,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
-      <div
-        style={{ height: "100%" }}
-        className={`${levi.variable} ${libre.variable}`}
-      >
-      </div>
+      <S.Wrapper className={`${levi.variable} ${libre.variable}`}>
         <StatusBar />
+      </S.Wrapper>
     </>
   );
 }

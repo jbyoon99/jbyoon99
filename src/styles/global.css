@@ -96,6 +96,12 @@ body,
 #__next {
   height: 100%;
 }
+
+#__next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
