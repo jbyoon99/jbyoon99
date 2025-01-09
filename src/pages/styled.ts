@@ -1,3 +1,4 @@
+import { colors } from "@/styles";
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
@@ -10,4 +11,10 @@ export const Wrapper = styled.div`
   border-radius: 0.5rem;
   position: relative;
   box-sizing: border-box;
+`;
+
+export const BlockArea = styled.div`
+  position: absolute;
+  background-color: ${colors.main.blue};
+  opacity: 0.5;
 `;
