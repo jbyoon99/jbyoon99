@@ -96,12 +96,16 @@ body,
 #__next {
   height: 100%;
 }
+html {
+  font-size: 10px;
+}
 
 #__next {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
