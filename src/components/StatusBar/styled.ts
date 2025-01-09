@@ -33,14 +33,11 @@ export const StartButton = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-family: var(--font-levi);
-  font-size: 2.4rem;
+
   span {
-    line-height: 0;
-    margin-top: 0.4rem;
-    font-weight: bold;
-    letter-spacing: 0.1rem;
+    font-family: var(--font-ms-sans-bold);
+    font-size: 1.2rem;
+    margin-top: 0.15rem;
   }
 `;
 
@@ -82,7 +79,7 @@ export const TrayContainer = styled.div`
 `;
 
 export const Time = styled.span`
-  font-family: var(--font-levi);
-  font-size: 2rem;
-  margin-top: 0.4rem;
+  font-family: var(--font-ms-sans);
+  font-size: 1rem;
+  margin-top: 0.2rem;
 `;
