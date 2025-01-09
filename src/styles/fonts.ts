@@ -5,7 +5,12 @@ export const libre = Libre_Franklin({
   subsets: ["latin"],
   variable: "--font-libre",
 });
-export const levi = localFont({
-  src: "../assets/leviwindows.ttf",
-  variable: "--font-levi",
+export const msSans = localFont({
+  src: "../assets/ms_sans_serif.ttf",
+  variable: "--font-ms-sans",
+});
+
+export const msSansBold = localFont({
+  src: "../assets/ms_sans_serif_bold.ttf",
+  variable: "--font-ms-sans-bold",
 });
