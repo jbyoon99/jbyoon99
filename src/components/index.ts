@@ -1,2 +1,2 @@
 export * from "./StatusBar";
-export * from "./Icons";
+export * from "./Icon";
