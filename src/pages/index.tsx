@@ -1,15 +1,22 @@
 import Head from "next/head";
-import { Icons, StatusBar } from "@/components";
+import { Icon, StatusBar } from "@/components";
 import { msSans, msSansBold, libre } from "@/styles";
 import * as S from "./styled";
 import { useRef } from "react";
 import { css } from "@emotion/react";
-import { useBlockArea } from "@/hooks";
+import { useBlockArea, useIntersection } from "@/hooks";
 
 export default function Home() {
   const anchorRef = useRef<HTMLDivElement | null>(null);
   const { width, height, top, left, onMouseDown, onMouseMove, onMouseUp } =
     useBlockArea(anchorRef);
+
+  const blockAreaRef = useRef<HTMLDivElement | null>(null);
+
+  const iconsRef = useRef<HTMLDivElement[]>([]);
+  useIntersection(blockAreaRef, iconsRef);
+
+  // 여기서 아이콘 배열들을 한꺼번에 관리해야 함.
 
   return (
     <>
@@ -30,6 +37,7 @@ export default function Home() {
         onMouseUp={onMouseUp}
       >
         <S.BlockArea
+          ref={blockAreaRef}
           css={css`
             width: ${width}px;
             height: ${height}px;
@@ -37,7 +45,11 @@ export default function Home() {
             left: ${left}px;
           `}
         />
-        <Icons />
+        <S.IconsWrapper>
+          {[1, 2, 3, 4].map((el, i) => (
+            <Icon key={el} ref={(r) => (iconsRef.current[i] = r)} />
+          ))}
+        </S.IconsWrapper>
         <StatusBar />
       </S.Wrapper>
     </>
