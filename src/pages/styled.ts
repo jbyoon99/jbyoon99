@@ -10,8 +10,6 @@ export const Wrapper = styled.div`
   border: 0.5rem solid #cecece;
   border-radius: 0.5rem;
   position: relative;
-  box-sizing: border-box;
-`;
 `;
 
 export const IconsWrapper = styled.div`

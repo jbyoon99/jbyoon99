@@ -75,7 +75,6 @@ export const TrayContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-right: 1rem;
-  box-sizing: border-box;
 `;
 
 export const Time = styled.span`
