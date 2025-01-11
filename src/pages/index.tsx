@@ -36,15 +36,7 @@ export default function Home() {
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
       >
-        <S.BlockArea
-          ref={blockAreaRef}
-          css={css`
-            width: ${width}px;
-            height: ${height}px;
-            top: ${top}px;
-            left: ${left}px;
-          `}
-        />
+        <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
               <Icon
                 key={name}

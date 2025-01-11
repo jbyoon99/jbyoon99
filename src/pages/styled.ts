@@ -12,11 +12,6 @@ export const Wrapper = styled.div`
   position: relative;
   box-sizing: border-box;
 `;
-
-export const BlockArea = styled.div`
-  position: absolute;
-  background-color: ${colors.main.blue};
-  opacity: 0.5;
 `;
 
 export const IconsWrapper = styled.div`
@@ -26,4 +21,10 @@ export const IconsWrapper = styled.div`
   grid-gap: 1.5rem 0.5rem;
   left: 0.5rem;
   top: 0.5rem;
+`;
+
+export const BlockArea = styled.div`
+  position: absolute;
+  background-color: ${colors.main.blue};
+  opacity: 0.5;
 `;
