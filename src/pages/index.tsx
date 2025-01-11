@@ -5,6 +5,7 @@ import * as S from "./styled";
 import { useRef } from "react";
 import { css } from "@emotion/react";
 import { useBlockArea, useIntersection } from "@/hooks";
+import { icons } from "@/constants";
 
 export default function Home() {
   const anchorRef = useRef<HTMLDivElement | null>(null);
@@ -38,6 +39,9 @@ export default function Home() {
       >
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
+          {icons.map((icon, i) => {
+            const { name, ico } = icon;
+            return (
               <Icon
                 key={name}
                 ico={ico}
@@ -45,6 +49,8 @@ export default function Home() {
                 ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
                 selected={selectedIcons[i] || tempSelectedIcons[i]}
               />
+            );
+          })}
         </S.IconsWrapper>
         <StatusBar />
       </S.Wrapper>
