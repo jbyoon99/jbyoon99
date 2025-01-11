@@ -46,9 +46,13 @@ export default function Home() {
           `}
         />
         <S.IconsWrapper>
-          {[1, 2, 3, 4].map((el, i) => (
-            <Icon key={el} ref={(r) => (iconsRef.current[i] = r)} />
-          ))}
+              <Icon
+                key={name}
+                ico={ico}
+                name={name}
+                ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
+                selected={selectedIcons[i] || tempSelectedIcons[i]}
+              />
         </S.IconsWrapper>
         <StatusBar />
       </S.Wrapper>

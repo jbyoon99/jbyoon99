@@ -1,11 +1,10 @@
 import * as S from "./styled";
-import { ComputerICO } from "@/assets/icons";
 
-export const Icon = ({ ref }) => {
+export const Icon = ({ name, ico, ref, selected }) => {
   return (
-    <S.IconContainer ref={ref}>
-      <S.IconImg src={ComputerICO.src} />
-      <S.IconName>My Computer</S.IconName>
+    <S.IconContainer ref={ref} onMouseDown={(e) => e.stopPropagation()}>
+      <S.IconImg src={ico.src} />
+      <S.IconName selected={selected}>{name}</S.IconName>
     </S.IconContainer>
   );
 };
