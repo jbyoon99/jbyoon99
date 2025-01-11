@@ -3,21 +3,15 @@ import { Icon, StatusBar } from "@/components";
 import { msSans, msSansBold, libre } from "@/styles";
 import * as S from "./styled";
 import { useRef } from "react";
-import { css } from "@emotion/react";
-import { useBlockArea, useIntersection } from "@/hooks";
+import { useBlockArea } from "@/hooks";
 import { icons } from "@/constants";
 
 export default function Home() {
-  const anchorRef = useRef<HTMLDivElement | null>(null);
-  const { width, height, top, left, onMouseDown, onMouseMove, onMouseUp } =
-    useBlockArea(anchorRef);
-
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const blockAreaRef = useRef<HTMLDivElement | null>(null);
-
   const iconsRef = useRef<HTMLDivElement[]>([]);
-  useIntersection(blockAreaRef, iconsRef);
-
-  // 여기서 아이콘 배열들을 한꺼번에 관리해야 함.
+  const { blockAreaStyle, eventHandler, tempSelectedIcons, selectedIcons } =
+    useBlockArea(wrapperRef, iconsRef, blockAreaRef);
 
   return (
     <>
@@ -31,11 +25,9 @@ export default function Home() {
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
       <S.Wrapper
-        ref={anchorRef}
+        ref={wrapperRef}
         className={`${msSans.variable} ${msSansBold.variable} ${libre.variable}`}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
+        {...eventHandler}
       >
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
