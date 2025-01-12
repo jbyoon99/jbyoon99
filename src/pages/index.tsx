@@ -5,13 +5,14 @@ import * as S from "./styled";
 import { useRef } from "react";
 import { css } from "@emotion/react";
 import { useBlockArea, useIntersection } from "@/hooks";
+import { useDesktop } from "@/hooks";
 import { icons } from "@/constants";
 
 export default function Home() {
-  const anchorRef = useRef<HTMLDivElement | null>(null);
   const { width, height, top, left, onMouseDown, onMouseMove, onMouseUp } =
     useBlockArea(anchorRef);
 
+  const desktopRef = useRef<HTMLDivElement | null>(null);
   const blockAreaRef = useRef<HTMLDivElement | null>(null);
 
   const iconsRef = useRef<HTMLDivElement[]>([]);
@@ -30,12 +31,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
-      <S.Wrapper
-        ref={anchorRef}
+      <S.Desktop
+        ref={desktopRef}
         className={`${msSans.variable} ${msSansBold.variable} ${libre.variable}`}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
+        {...desktopEventHandler}
       >
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
@@ -53,7 +55,7 @@ export default function Home() {
           })}
         </S.IconsWrapper>
         <StatusBar />
-      </S.Wrapper>
+      </S.Desktop>
     </>
   );
 }

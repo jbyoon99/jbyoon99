@@ -1,7 +1,7 @@
 import { colors } from "@/styles";
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.div`
+export const Desktop = styled.div`
   height: 800px;
   max-height: 100vh;
   max-width: 100vw;
