@@ -45,11 +45,16 @@ export default function Home() {
             const { name, ico } = icon;
             return (
               <Icon
-                key={name}
+                key={String(name)}
                 ico={ico}
                 name={name}
                 ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
-                selected={selectedIcons[i] || tempSelectedIcons[i]}
+                highlighted={
+                  selectedIcons[i] ||
+                  tempSelectedIcons[i] ||
+                  clickedIconIdx === i
+                }
+                outlined={prevClickedIconIdx === i}
               />
             );
           })}
