@@ -18,10 +18,12 @@ export const useDesktopIcon = ({
 
     iconsRef.current.forEach((icon, i) => {
       icon.addEventListener("click", clickHandlers[i]);
+      icon.addEventListener("contextmenu", clickHandlers[i]);
     });
 
     return iconsRef.current.forEach((icon, i) => {
       icon.addEventListener("click", clickHandlers[i]);
+      icon.addEventListener("contextmenu", clickHandlers[i]);
     });
   }, [iconsRef, setClickedIconIdx, setPrevClickedIconIdx]);
 
