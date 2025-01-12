@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Icon, StatusBar } from "@/components";
+import { Icon, Modal, StatusBar } from "@/components";
 import { msSans, msSansBold, libre } from "@/styles";
 import * as S from "./styled";
 import { useRef } from "react";
@@ -57,6 +57,7 @@ export default function Home() {
             );
           })}
         </S.IconsWrapper>
+        <Modal />
         <StatusBar />
       </S.Desktop>
     </>
