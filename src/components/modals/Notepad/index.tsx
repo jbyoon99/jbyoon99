@@ -1,3 +1,3 @@
-export const Notepad = () => {
+export const NotepadModal = () => {
   return <></>;
 };

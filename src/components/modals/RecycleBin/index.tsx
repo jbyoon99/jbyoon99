@@ -1,3 +1,3 @@
-export const RecycleBin = () => {
+export const RecycleBinModal = () => {
   return <></>;
 };

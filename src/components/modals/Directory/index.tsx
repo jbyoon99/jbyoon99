@@ -1,3 +1,3 @@
-export const Directory = () => {
+export const DirectoryModal = () => {
   return <></>;
 };
