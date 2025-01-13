@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";
 import { useModal } from "@/providers";
-import { Modal } from "../Modal";
+import { Modal } from "../modals";
 
 export const StatusBar = () => {
   const time = useTick(get12HourTimeWithNotation, 1000);
