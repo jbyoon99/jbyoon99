@@ -4,22 +4,15 @@ import { css } from "@emotion/react";
 import { useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";
 import { useModal } from "@/providers";
-import { Modal } from "../modals";
 
 export const StatusBar = () => {
   const time = useTick(get12HourTimeWithNotation, 1000);
-  const { open, close } = useModal();
+  const { openedModals, focusedModal, setFocusedModal } = useModal();
 
   return (
     <S.StatusBar>
       <S.TaskBar>
-        <S.StartButton
-          onClick={() =>
-            open("name", Modal, {
-              handleClose: () => close("name"),
-            })
-          }
-        >
+        <S.StartButton>
           <S.StartIcon src={StartIconPNG.src} />
           <span>Start</span>
         </S.StartButton>
@@ -30,7 +23,7 @@ export const StatusBar = () => {
         />
         <S.SizingLine
           css={css`
-            margin-left: 1rem;
+            margin-left: 0.3rem;
           `}
         />
         <S.Icon />
@@ -41,9 +34,20 @@ export const StatusBar = () => {
         />
         <S.SizingLine
           css={css`
-            margin-left: 1rem;
+            margin-left: 0.3rem;
+            margin-right: 0.5rem;
           `}
         />
+        {openedModals.map(({ meta }) => (
+          <S.TaskBarButton
+            isFocused={meta.name === focusedModal}
+            key={meta.name}
+            onClick={() => setFocusedModal(meta.name)}
+          >
+            <S.TaskIcon src={meta.ico.src} />
+            <S.TaskName>{meta.name}</S.TaskName>
+          </S.TaskBarButton>
+        ))}
       </S.TaskBar>
       <S.SystemTray>
         <S.DividingLine

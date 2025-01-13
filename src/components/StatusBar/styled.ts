@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const StatusBar = styled.div`
@@ -19,14 +20,18 @@ export const TaskBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
 `;
 
 export const StartButton = styled.div`
-  height: 2.1rem;
-  border: 1px solid;
+  height: 100%;
+  border: 0.1rem solid;
   border-color: #dfdfdf #808080 #808080 #dfdfdf;
-  box-shadow: 1px 0 0 #000000, -1px 0 0 #ffffff, 0 1px 0 #000000,
-    0 -1px 0 #ffffff;
+  box-shadow: 0.1rem 0 0 #000000, -0.1rem 0 0 #ffffff, 0 0.1rem 0 #000000,
+    0 -0.1rem 0 #ffffff;
   width: 6rem;
   display: flex;
   flex-direction: row;
@@ -48,16 +53,64 @@ export const StartIcon = styled.img`
 export const Icon = styled.img``;
 
 export const DividingLine = styled.div`
-  height: 2.4rem;
-  border-left: 1px solid #808080;
-  border-right: 1px solid #ffffff;
+  height: 100%;
+  border-left: 0.1rem solid #808080;
+  border-right: 0.1rem solid #ffffff;
   background-color: white;
 `;
 
 export const SizingLine = styled.div`
-  height: 2.1rem;
-  border: 1px solid;
+  height: 80%;
+  border: 0.1rem solid;
+  width: 0.1rem;
+  background-color: #d2d2d2;
   border-color: #ffffff #808080 #808080 #ffffff;
+`;
+
+export const TaskBarButton = styled.div<{ isFocused: boolean }>`
+  display: flex;
+  height: 100%;
+  background-color: white;
+  border: 0.1rem solid;
+  // max-width: 30%;
+  width: 15rem;
+  align-items: center;
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  ${(props) =>
+    props.isFocused
+      ? css`
+          background-color: #fff;
+          background-image: linear-gradient(0deg, #b6b6b6 50%, #fff 50%),
+            linear-gradient(90deg, #b6b6b6 50%, #fff 50%);
+          background-size: 2px 2px;
+          border-color: #808080 #dfdfdf #dfdfdf #808080;
+          box-shadow: 0.1rem 0 0 #ffffff, -0.1rem 0 0 #000000,
+            0 0.1rem 0 #ffffff, 0 -0.1rem 0 #000000;
+          background-position: 0 1px;
+          font-family: var(--font-ms-sans-bold);
+        `
+      : css`
+          background-color: #c0c0c0;
+          border-color: #dfdfdf #808080 #808080 #dfdfdf;
+          box-shadow: 0.1rem 0 0 #000000, -0.1rem 0 0 #ffffff,
+            0 0.1rem 0 #000000, 0 -0.1rem 0 #ffffff;
+          font-family: var(--font-ms-sans);
+        `}
+`;
+
+export const TaskIcon = styled.img`
+  height: 100%;
+  margin-right: 0.3rem;
+  aspect-ratio: 1/1;
+`;
+
+export const TaskName = styled.div`
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const SystemTray = styled.div`
@@ -66,7 +119,7 @@ export const SystemTray = styled.div`
 `;
 
 export const TrayContainer = styled.div`
-  border: 1px solid;
+  border: 0.1rem solid;
   border-color: #808080 #ffffff #ffffff #808080;
   height: 2.4rem;
   width: 10rem;
