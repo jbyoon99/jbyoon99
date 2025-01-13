@@ -43,7 +43,7 @@ export default function Home() {
             const { name, ico } = icon;
             return (
               <Icon
-                key={String(name)}
+                key={JSON.stringify(name)}
                 ico={ico}
                 name={name}
                 ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
