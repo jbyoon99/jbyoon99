@@ -19,6 +19,9 @@ export const useBlockArea = ({
     left: 0,
   });
 
+  // TODO : 모달이 떠있을 때 끊기지 않도록 하기.
+  // 모달 자체에서 블록이 잡히지 않도록 하면서 밖에서 했을 때는 그대로 이어지도록
+
   useEffect(() => {
     if (!blockAreaRef || !iconsRef) return;
     const { width, height, top, left } =
