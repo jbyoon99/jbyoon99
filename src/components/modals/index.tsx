@@ -1,23 +1,10 @@
-import * as S from "./styled";
+import { DevModal } from "./Dev";
+import { DirectoryModal } from "./Directory";
+import { NotepadModal } from "./Notepad";
+import { RecycleBinModal } from "./RecycleBin";
 
-export const Modal = ({ handleClose }) => {
-  return (
-    <S.Wrapper onMouseDown={(e) => e.stopPropagation()}>
-      <S.Header>
-        <S.Title>System Properties</S.Title>
-      </S.Header>
-      <S.Content></S.Content>
-      <S.ButtonContainer>
-        <S.Button>
-          <span>OK</span>
-        </S.Button>
-        <S.Button onClick={handleClose}>
-          <span>Cancel</span>
-        </S.Button>
-        <S.Button>
-          <span>Help</span>
-        </S.Button>
-      </S.ButtonContainer>
-    </S.Wrapper>
-  );
+export const modals = {
+  "My Documents": DevModal,
+  "Recycle Bin": DevModal,
+  Copyrights: DevModal,
 };
