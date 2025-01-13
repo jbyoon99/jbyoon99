@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useIconClickHandler } from "./";
 
 export const useDesktopIcon = ({
   iconsRef,
@@ -7,15 +6,15 @@ export const useDesktopIcon = ({
   setClickedIconIdx,
   setPrevClickedIconIdx,
 }) => {
-  const { iconClickHandler } = useIconClickHandler([
-    setClickedIconIdx,
-    setPrevClickedIconIdx,
-  ]);
-
   useEffect(() => {
     if (!iconsRef) return;
 
     const icons = iconsRef.current;
+
+    const iconClickHandler = (i) => {
+      setClickedIconIdx(i);
+      setPrevClickedIconIdx(i);
+    };
 
     const clickHandlers = iconsRef.current.map((_, i) => {
       return () => {
@@ -24,8 +23,7 @@ export const useDesktopIcon = ({
     });
     const contextMenuHandlers = iconsRef.current.map((_, i) => {
       return () => {
-        setClickedIconIdx(i);
-        setPrevClickedIconIdx(i);
+        iconClickHandler(i);
       };
     });
 
@@ -36,10 +34,11 @@ export const useDesktopIcon = ({
 
     return () =>
       icons.forEach((icon, i) => {
+        if (!icon) return;
         icon.removeEventListener("click", clickHandlers[i]);
         icon.removeEventListener("contextmenu", contextMenuHandlers[i]);
       });
-  }, [iconsRef, setClickedIconIdx, setPrevClickedIconIdx, iconClickHandler]);
+  }, [iconsRef, setClickedIconIdx, setPrevClickedIconIdx]);
 
   useEffect(() => {
     if (!iconsRef) return;
