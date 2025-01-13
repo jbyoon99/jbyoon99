@@ -1,30 +1,31 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
 const ModalContext = createContext();
 
 type modalType = {
-  name: string;
   Component: React.FC<any>;
   props: { [key: string]: any };
+  meta?: { name?: string; ico: string };
 };
 
 export const ModalProvider = ({ children }) => {
   const [openedModals, setOpenedModals] = useState<modalType[]>([]);
-  const [modalZIndex, setModalZIndex] = useState<number>(1);
+  const [focusedModal, setFocusedModal] = useState<string | null>(null);
 
   const open = useCallback(
-    (name, Component, props) => {
+    (Component, props, meta) => {
       setOpenedModals((_openedModals) => {
-        if (_openedModals.some((modal) => modal.name === name))
+        setFocusedModal(meta.name);
+        if (
+          _openedModals.some(
+            (modal) => modal.meta && modal.meta.name === meta.name
+          )
+        ) {
           return _openedModals;
-        return [..._openedModals, { name, Component, props }];
+        }
+
+        return [..._openedModals, { Component, props, meta }];
       });
     },
     [setOpenedModals]
@@ -35,25 +36,30 @@ export const ModalProvider = ({ children }) => {
       setOpenedModals((_openedModals) => {
         let removed = false;
         return _openedModals.filter((modal) => {
-          if (!removed && modal.name === name) {
+          if (!removed && modal.meta && modal.meta.name === name) {
             removed = true;
             return false;
           }
           return true;
         });
       });
+      if (focusedModal === name) {
+        setFocusedModal(null);
+      }
     },
-    [setOpenedModals]
+    [setOpenedModals, focusedModal]
   );
-  
+
   // Note: 아래 useEffect는 느려질 시 삭제해도 됨
-  useEffect(() => {
-    if (openedModals.length === 0) setModalZIndex(1);
-  }, [openedModals]);
-  // 
+  // useEffect(() => {
+  //   if (openedModals.length === 0) setModalZIndex(1);
+  // }, [openedModals]);
+  //
 
   return (
-    <ModalContext.Provider value={{ open, close }}>
+    <ModalContext.Provider
+      value={{ open, close, openedModals, focusedModal, setFocusedModal }}
+    >
       {typeof window !== "undefined" &&
         createPortal(
           openedModals.map(({ name, Component, props }, i) => {
