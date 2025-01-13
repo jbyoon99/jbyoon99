@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Icon, Modal, StatusBar } from "@/components";
-import { msSans, msSansBold, libre } from "@/styles";
+import { Icon, StatusBar } from "@/components";
+
 import * as S from "./styled";
 import { useRef } from "react";
 import { useDesktop } from "@/hooks";
@@ -32,11 +32,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
-      <S.Desktop
-        ref={desktopRef}
-        className={`${msSans.variable} ${msSansBold.variable} ${libre.variable}`}
-        {...desktopEventHandler}
-      >
+      <S.Desktop ref={desktopRef} {...desktopEventHandler}>
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
           {icons.map((icon, i) => {
@@ -57,7 +53,7 @@ export default function Home() {
             );
           })}
         </S.IconsWrapper>
-        <Modal />
+        {/* <Modal /> */}
         <StatusBar />
       </S.Desktop>
     </>
