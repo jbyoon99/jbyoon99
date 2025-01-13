@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useIconClickHandler } from "./";
 
 export const useDesktopIcon = ({
   iconsRef,
@@ -6,26 +7,39 @@ export const useDesktopIcon = ({
   setClickedIconIdx,
   setPrevClickedIconIdx,
 }) => {
+  const { iconClickHandler } = useIconClickHandler([
+    setClickedIconIdx,
+    setPrevClickedIconIdx,
+  ]);
+
   useEffect(() => {
     if (!iconsRef) return;
-    const updateClicked = (idx) => {
-      setClickedIconIdx(idx);
-      setPrevClickedIconIdx(idx);
-    };
+
+    const icons = iconsRef.current;
+
     const clickHandlers = iconsRef.current.map((_, i) => {
-      return () => updateClicked(i);
+      return () => {
+        iconClickHandler(i);
+      };
+    });
+    const contextMenuHandlers = iconsRef.current.map((_, i) => {
+      return () => {
+        setClickedIconIdx(i);
+        setPrevClickedIconIdx(i);
+      };
     });
 
-    iconsRef.current.forEach((icon, i) => {
+    icons.forEach((icon, i) => {
       icon.addEventListener("click", clickHandlers[i]);
-      icon.addEventListener("contextmenu", clickHandlers[i]);
+      icon.addEventListener("contextmenu", contextMenuHandlers[i]);
     });
 
-    return iconsRef.current.forEach((icon, i) => {
-      icon.addEventListener("click", clickHandlers[i]);
-      icon.addEventListener("contextmenu", clickHandlers[i]);
-    });
-  }, [iconsRef, setClickedIconIdx, setPrevClickedIconIdx]);
+    return () =>
+      icons.forEach((icon, i) => {
+        icon.removeEventListener("click", clickHandlers[i]);
+        icon.removeEventListener("contextmenu", contextMenuHandlers[i]);
+      });
+  }, [iconsRef, setClickedIconIdx, setPrevClickedIconIdx, iconClickHandler]);
 
   useEffect(() => {
     if (!iconsRef) return;
