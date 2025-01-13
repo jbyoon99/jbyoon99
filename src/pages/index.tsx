@@ -53,7 +53,6 @@ export default function Home() {
             );
           })}
         </S.IconsWrapper>
-        {/* <Modal /> */}
         <StatusBar />
       </S.Desktop>
     </>
