@@ -13,7 +13,6 @@ export const StatusBar = styled.div`
   align-items: center;
   flex-direction: row;
   user-select: none;
-  pointer-events: none;
 `;
 
 export const TaskBar = styled.div`

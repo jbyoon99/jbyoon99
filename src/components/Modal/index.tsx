@@ -1,6 +1,6 @@
 import * as S from "./styled";
 
-export const Modal = () => {
+export const Modal = ({ handleClose }) => {
   return (
     <S.Wrapper onMouseDown={(e) => e.stopPropagation()}>
       <S.Header>
@@ -11,7 +11,7 @@ export const Modal = () => {
         <S.Button>
           <span>OK</span>
         </S.Button>
-        <S.Button>
+        <S.Button onClick={handleClose}>
           <span>Cancel</span>
         </S.Button>
         <S.Button>
