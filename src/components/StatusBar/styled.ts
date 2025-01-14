@@ -20,8 +20,8 @@ export const TaskBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   height: 100%;
+  width: 100%;
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
 `;
@@ -67,13 +67,19 @@ export const SizingLine = styled.div`
   border-color: #ffffff #808080 #808080 #ffffff;
 `;
 
+export const TaskBarButtonContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+`;
+
 export const TaskBarButton = styled.div<{ isFocused: boolean }>`
   display: flex;
   height: 100%;
   background-color: white;
   border: 0.1rem solid;
-  // max-width: 30%;
-  width: 15rem;
+  max-width: 15rem;
+  flex-grow: 1;
   align-items: center;
   padding-left: 0.5rem;
   margin-right: 0.5rem;
@@ -111,6 +117,7 @@ export const TaskName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-shrink: 1;
 `;
 
 export const SystemTray = styled.div`

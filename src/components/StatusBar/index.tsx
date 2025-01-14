@@ -38,16 +38,18 @@ export const StatusBar = () => {
             margin-right: 0.5rem;
           `}
         />
-        {openedModals.map(({ meta }) => (
-          <S.TaskBarButton
-            isFocused={meta.name === focusedModal}
-            key={meta.name}
-            onClick={() => setFocusedModal(meta.name)}
-          >
-            <S.TaskIcon src={meta.ico.src} />
-            <S.TaskName>{meta.name}</S.TaskName>
-          </S.TaskBarButton>
-        ))}
+        <S.TaskBarButtonContainer>
+          {openedModals.map(({ meta }) => (
+            <S.TaskBarButton
+              isFocused={meta.name === focusedModal}
+              key={meta.name}
+              onClick={() => setFocusedModal(meta.name)}
+            >
+              <S.TaskIcon src={meta.ico.src} />
+              <S.TaskName>{meta.name}</S.TaskName>
+            </S.TaskBarButton>
+          ))}
+        </S.TaskBarButtonContainer>
       </S.TaskBar>
       <S.SystemTray>
         <S.DividingLine
