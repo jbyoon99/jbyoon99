@@ -1,13 +1,15 @@
 import * as S from "./styled";
 import StartIconPNG from "@/assets/jbyoon99_start_icon.png";
 import { css } from "@emotion/react";
-import { useTick } from "@/hooks";
+import { useModal, useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";
-import { useModal } from "@/providers";
 
 export const StatusBar = () => {
   const time = useTick(get12HourTimeWithNotation, 1000);
-  const { openedModals, focusedModal, setFocusedModal } = useModal();
+  const {
+    state: { modals },
+    bringToFront,
+  } = useModal();
 
   return (
     <S.StatusBar>
@@ -38,18 +40,17 @@ export const StatusBar = () => {
             margin-right: 0.5rem;
           `}
         />
-        <S.TaskBarButtonContainer>
-          {openedModals.map(({ meta }) => (
-            <S.TaskBarButton
-              isFocused={meta.name === focusedModal}
-              key={meta.name}
-              onClick={() => setFocusedModal(meta.name)}
-            >
-              <S.TaskIcon src={meta.ico.src} />
-              <S.TaskName>{meta.name}</S.TaskName>
+        {modals.map(({ name, index, ico, isFocused }) => (
+          <S.TaskBarButtonContainer
+            key={index}
+            onClick={() => bringToFront(name)}
+          >
+            <S.TaskBarButton isFocused={isFocused}>
+              <S.TaskIcon src={ico.src} />
+              <S.TaskName>{name}</S.TaskName>
             </S.TaskBarButton>
-          ))}
-        </S.TaskBarButtonContainer>
+          </S.TaskBarButtonContainer>
+        ))}
       </S.TaskBar>
       <S.SystemTray>
         <S.DividingLine
