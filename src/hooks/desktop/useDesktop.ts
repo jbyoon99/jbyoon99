@@ -1,82 +1,130 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useBlockArea, useDesktopIcon } from "./";
+import { useEffect, useRef, useState } from "react";
+import { useBlockArea } from "./";
 
 export const useDesktop = ({ desktopRef, iconsRef }) => {
   const [isDrawingBlockArea, setIsDrawingBlockArea] = useState(false);
-  const [initialPoint, setInitialPoint] = useState<null | {
-    x: number;
-    y: number;
-  }>(null);
-  const [currentPoint, setCurrentPoint] = useState<null | {
-    x: number;
-    y: number;
-  }>(null);
-  const [tempSelectedIcons, setTempSelectedIcons] = useState([]);
-  const [selectedIcons, setSelectedIcons] = useState([]);
-  const [clickedIconIdx, setClickedIconIdx] = useState(null);
-  const [prevClickedIconIdx, setPrevClickedIconIdx] = useState(null);
-  const mouseHandlers = useRef({
-    onMouseDown: (e) => {},
-    onMouseUp: (e) => {},
-    onMouseMove: (e) => {},
-    onContextMenu: (e) => {},
+  const [cursorPoint, setCursorPoint] = useState({
+    initial: null,
+    current: null,
   });
-  const { blockAreaPosition } = useBlockArea({
+  const [clickedIcon, setClickedIcon] = useState({
+    initial: null,
+    current: null,
+  });
+  const [selectedIcons, setSelectedIcons] = useState([]);
+  const desktopHandlers = useRef({
+    mousedown: (e) => {},
+    mouseup: (e) => {},
+    mousemove: (e) => {},
+    contextmenu: (e) => {},
+  });
+  const { blockAreaStyle } = useBlockArea({
     desktopRef,
     iconsRef,
-    initialPoint,
-    currentPoint,
-    setTempSelectedIcons,
-    isDrawingBlockArea,
-  });
-  useDesktopIcon({
-    iconsRef,
-    clickedIconIdx,
-    setClickedIconIdx,
-    setPrevClickedIconIdx,
+    cursorPoint,
+    setSelectedIcons,
   });
 
+  // icon
   useEffect(() => {
-    const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!isDrawingBlockArea) return;
-      const { clientX: x, clientY: y } = e;
-      setCurrentPoint({ x, y });
+    if (!iconsRef) return;
+    const click = (i) => {
+      setClickedIcon({ initial: i, current: i });
     };
 
-    mouseHandlers.current["onMouseMove"] = onMouseMove;
+    const iconHandlers = iconsRef.current.map((_, i) => {
+      return () => {
+        click(i);
+        setSelectedIcons([]);
+      };
+    });
+
+    iconsRef.current.forEach((icon, i) =>
+      icon.addEventListener("click", iconHandlers[i])
+    );
+
+    return () =>
+      iconsRef.current.forEach(
+        (icon, i) => icon && icon.removeEventListener("click", iconHandlers[i])
+      );
+  }, [iconsRef]);
+
+  useEffect(() => {
+    if (!iconsRef) return;
+
+    const changeIcon = (e: React.KeyboardEvent) => {
+      setSelectedIcons([]);
+      if (e.key === "ArrowUp") {
+        setClickedIcon((prevIcon) => {
+          return {
+            ...prevIcon,
+            current: prevIcon.current <= 0 ? 0 : prevIcon.current - 1,
+          };
+        });
+      }
+      if (e.key === "ArrowDown") {
+        setClickedIcon((prevIcon) => {
+          return {
+            ...prevIcon,
+            current:
+              prevIcon.current >= iconsRef.current.length - 1
+                ? iconsRef.current.length - 1
+                : prevIcon.current + 1,
+          };
+        });
+      }
+    };
+
+    window.addEventListener("keydown", changeIcon);
+
+    return () => window.removeEventListener("keydown", changeIcon);
+  }, [iconsRef]);
+
+  // desktop
+  useEffect(() => {
+    const mousemove = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!isDrawingBlockArea) return;
+      const { clientX: x, clientY: y } = e;
+      setCursorPoint((prevPoint) => {
+        return { ...prevPoint, current: { x, y } };
+      });
+    };
+
+    desktopHandlers.current["mousemove"] = mousemove;
   }, [isDrawingBlockArea]);
 
   useEffect(() => {
-    const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target.closest("div").id !== "desktop") return;
+    const mousedown = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target?.closest("div")?.id !== "desktop") return;
       const { clientX: x, clientY: y } = e;
-      setInitialPoint({ x, y });
-      setCurrentPoint({ x, y });
+      setCursorPoint({ initial: { x, y }, current: { x, y } });
+      setClickedIcon((prevIcon) => {
+        return { ...prevIcon, current: null };
+      });
       setIsDrawingBlockArea(true);
     };
-    const onMouseUp = () => {
-      setInitialPoint(null);
-      setCurrentPoint(null);
+    const mouseup = () => {
+      setCursorPoint({ initial: null, current: null });
       setIsDrawingBlockArea(false);
     };
-    const onContextMenu = (e: React.MouseEvent) => {
+    const contextmenu = (e: React.MouseEvent) => {
       e.preventDefault();
     };
-    mouseHandlers.current["onMouseDown"] = onMouseDown;
-    mouseHandlers.current["onMouseUp"] = onMouseUp;
-    mouseHandlers.current["onContextMenu"] = onContextMenu;
+    desktopHandlers.current["mousedown"] = mousedown;
+    desktopHandlers.current["mouseup"] = mouseup;
+    desktopHandlers.current["contextmenu"] = contextmenu;
 
     const mouseMoveHandler = window.addEventListener("mousemove", (e) =>
-      mouseHandlers.current["onMouseMove"](e)
+      desktopHandlers.current["mousemove"](e)
     );
     const mouseDownHandler = window.addEventListener("mousedown", (e) =>
-      mouseHandlers.current["onMouseDown"](e)
+      desktopHandlers.current["mousedown"](e)
     );
     const mouseUpHandler = window.addEventListener("mouseup", (e) =>
-      mouseHandlers.current["onMouseUp"](e)
+      desktopHandlers.current["mouseup"](e)
     );
     const contextMenuHandler = window.addEventListener("contextmenu", (e) =>
-      mouseHandlers.current["onContextMenu"](e)
+      desktopHandlers.current["contextmenu"](e)
     );
 
     return () => {
@@ -88,13 +136,8 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
   }, []);
 
   return {
-    blockAreaStyle: {
-      ...blockAreaPosition,
-      display: isDrawingBlockArea ? "block" : "none",
-    },
-    tempSelectedIcons,
+    blockAreaStyle,
     selectedIcons,
-    clickedIconIdx,
-    prevClickedIconIdx,
+    clickedIcon,
   };
 };

@@ -11,13 +11,10 @@ export default function Home() {
   const blockAreaRef = useRef<HTMLDivElement | null>(null);
   const iconsRef = useRef<HTMLDivElement[]>([]);
 
-  const {
-    blockAreaStyle,
-    tempSelectedIcons,
-    selectedIcons,
-    prevClickedIconIdx,
-    clickedIconIdx,
-  } = useDesktop({ desktopRef, iconsRef });
+  const { blockAreaStyle, selectedIcons, clickedIcon } = useDesktop({
+    desktopRef,
+    iconsRef,
+  });
 
   return (
     <>
@@ -40,12 +37,8 @@ export default function Home() {
                 key={i}
                 config={config}
                 ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
-                isHighlighted={
-                  selectedIcons[i] ||
-                  tempSelectedIcons[i] ||
-                  clickedIconIdx === i
-                }
-                isOutlined={prevClickedIconIdx === i}
+                isHighlighted={selectedIcons[i] || clickedIcon.current === i}
+                isOutlined={clickedIcon.initial === i}
               />
             );
           })}
