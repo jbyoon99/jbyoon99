@@ -18,6 +18,7 @@ const modalReducer = (state, action) => {
             index: newIndex,
             ico: modalTemplate[action.name].ico,
             isFocused: true,
+            initialIndex: newIndex,
           },
         ],
         globalIndex: newIndex,
@@ -58,12 +59,20 @@ export const ModalProvider = ({ children }) => {
     <ModalContext.Provider value={{ state, dispatch }}>
       {typeof window !== "undefined" &&
         createPortal(
-          state.modals.map(({ name, index }) => {
+          state.modals.map(({ name, index, initialIndex }) => {
             const { Component, ico } = modalTemplate[name];
 
-            return <Component name={name} key={index} index={index} ico={ico} />;
+            return (
+              <Component
+                name={name}
+                initialIndex={initialIndex}
+                key={index}
+                index={index}
+                ico={ico}
+              />
+            );
           }),
-          document.getElementById("__next")!
+          document.getElementById("desktop")!
         )}
       {children}
     </ModalContext.Provider>
