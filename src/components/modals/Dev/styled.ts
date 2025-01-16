@@ -2,8 +2,6 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   position: absolute;
-  inset: 0;
-  margin: auto;
   width: 30rem;
   height: 30rem;
   background-color: #bdbebd;
