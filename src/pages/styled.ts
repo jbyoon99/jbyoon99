@@ -13,6 +13,7 @@ export const Desktop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: content-box;
 `;
 
 export const IconsWrapper = styled.div`
