@@ -13,12 +13,11 @@ export default function Home() {
 
   const {
     blockAreaStyle,
-    desktopEventHandler,
     tempSelectedIcons,
     selectedIcons,
     prevClickedIconIdx,
     clickedIconIdx,
-  } = useDesktop({ desktopRef, iconsRef, blockAreaRef });
+  } = useDesktop({ desktopRef, iconsRef });
 
   return (
     <>
@@ -31,7 +30,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
-      <S.Desktop ref={desktopRef} {...desktopEventHandler}>
+
+      <S.Desktop id="desktop" ref={desktopRef}>
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
           {desktopIconTemplate.map((config, i) => {
