@@ -7,13 +7,7 @@ export const Icon = ({ config, ref, isHighlighted, isOutlined }) => {
   const { onDoubleClick } = useDoubleClick([() => open(name)]);
 
   return (
-    <S.IconContainer
-      ref={ref}
-      onClick={(e) => {
-        e.stopPropagation();
-        onDoubleClick();
-      }}
-    >
+    <S.IconContainer ref={ref} onMouseDown={onDoubleClick}>
       <S.IconImg src={ico.src} />
       <S.IconName isHighlighted={isHighlighted} isOutlined={isOutlined}>
         {name}

@@ -33,6 +33,7 @@ export const useDesktop = ({ desktopRef, iconsRef, blockAreaRef }) => {
 
   const onMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target.closest("div").id !== "desktop") return;
       const { clientX, clientY } = e;
       const point = { x: clientX, y: clientY };
       setInitialPoint(point);
