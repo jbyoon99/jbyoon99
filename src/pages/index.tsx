@@ -4,12 +4,11 @@ import { Icon, StatusBar } from "@/components";
 import * as S from "./styled";
 import { useRef } from "react";
 import { useDesktop } from "@/hooks";
-import { icons } from "@/constants";
+import { desktopIconTemplate } from "@/templates";
 
 export default function Home() {
   const desktopRef = useRef<HTMLDivElement | null>(null);
   const blockAreaRef = useRef<HTMLDivElement | null>(null);
-
   const iconsRef = useRef<HTMLDivElement[]>([]);
 
   const {
@@ -35,8 +34,7 @@ export default function Home() {
       <S.Desktop ref={desktopRef} {...desktopEventHandler}>
         <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
         <S.IconsWrapper>
-          {icons.map((icon, i) => {
-            const { name, ico } = icon;
+          {desktopIconTemplate.map((config, i) => {
             return (
               <Icon
                 key={i}
