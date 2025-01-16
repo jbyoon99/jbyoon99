@@ -10,6 +10,9 @@ export const Desktop = styled.div`
   border: 0.5rem solid #cecece;
   border-radius: 0.5rem;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const IconsWrapper = styled.div`
