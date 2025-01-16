@@ -1,69 +1,67 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { modalTemplate } from "@/templates";
+import { createContext, useContext, useReducer } from "react";
 import { createPortal } from "react-dom";
 
 const ModalContext = createContext();
 
-type modalType = {
-  Component: React.FC<any>;
-  props: { [key: string]: any };
-  meta?: { name?: string; ico: string };
+const modalReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL": {
+      const newIndex = state.globalIndex + 1;
+      return {
+        modals: [
+          ...state.modals.map((modal) => {
+            return { ...modal, isFocused: false };
+          }),
+          {
+            name: action.name,
+            index: newIndex,
+            ico: modalTemplate[action.name].ico,
+            isFocused: true,
+          },
+        ],
+        globalIndex: newIndex,
+      };
+    }
+
+    case "CLOSE_MODAL": {
+      return {
+        ...state,
+        modals: state.modals.filter((modal) => modal.name !== action.name),
+      };
+    }
+
+    case "BRING_TO_FRONT": {
+      const newIndex = state.globalIndex + 1;
+      return {
+        modals: state.modals.map((modal) =>
+          modal.name === action.name
+            ? { ...modal, index: newIndex, isFocused: true }
+            : { ...modal, isFocused: false }
+        ),
+        globalIndex: newIndex,
+      };
+    }
+
+    default:
+      return state;
+  }
 };
 
 export const ModalProvider = ({ children }) => {
-  const [openedModals, setOpenedModals] = useState<modalType[]>([]);
-  const [focusedModal, setFocusedModal] = useState<string | null>(null);
-
-  const open = useCallback(
-    (Component, props, meta) => {
-      setOpenedModals((_openedModals) => {
-        setFocusedModal(meta.name);
-        if (
-          _openedModals.some(
-            (modal) => modal.meta && modal.meta.name === meta.name
-          )
-        ) {
-          return _openedModals;
-        }
-
-        return [..._openedModals, { Component, props, meta }];
-      });
-    },
-    [setOpenedModals]
-  );
-
-  const close = useCallback(
-    (name) => {
-      setOpenedModals((_openedModals) => {
-        let removed = false;
-        return _openedModals.filter((modal) => {
-          if (!removed && modal.meta && modal.meta.name === name) {
-            removed = true;
-            return false;
-          }
-          return true;
-        });
-      });
-      if (focusedModal === name) {
-        setFocusedModal(null);
-      }
-    },
-    [setOpenedModals, focusedModal]
-  );
-
-  // Note: 아래 useEffect는 느려질 시 삭제해도 됨
-  // useEffect(() => {
-  //   if (openedModals.length === 0) setModalZIndex(1);
-  // }, [openedModals]);
-  //
+  const [state, dispatch] = useReducer(modalReducer, {
+    modals: [],
+    globalIndex: 0,
+  });
 
   return (
-    <ModalContext.Provider
-      value={{ open, close, openedModals, focusedModal, setFocusedModal }}
-    >
+    <ModalContext.Provider value={{ state, dispatch }}>
       {typeof window !== "undefined" &&
         createPortal(
-          openedModals.map(({ name, Component, props }, i) => {
-            return <Component key={i} id={name} {...props} />;
+          state.modals.map(({ name, index }) => {
+            const { Component, ico } = modalTemplate[name];
+
+            return <Component name={name} key={index} index={index} ico={ico} />;
           }),
           document.getElementById("__next")!
         )}
@@ -72,7 +70,7 @@ export const ModalProvider = ({ children }) => {
   );
 };
 
-export const useModal = () => {
+export const useModalContext = () => {
   const context = useContext(ModalContext);
   if (!context)
     throw new Error("useModal() must be used within a ModalProvider");
