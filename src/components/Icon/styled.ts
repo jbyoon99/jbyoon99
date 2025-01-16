@@ -15,18 +15,21 @@ export const IconImg = styled.img`
   margin-bottom: 0.4rem;
 `;
 
-export const IconName = styled.div<{ highlighted: boolean; outlined: boolean }>`
+export const IconName = styled.div<{
+  isHighlighted: boolean;
+  isOutlined: boolean;
+}>`
   color: ${colors.main.white};
   font-family: var(--font-ms-sans);
   font-size: 1.2rem;
   text-align: center;
 
   background-color: ${(props) =>
-    props.highlighted ? `${colors.main.blue}` : ""};
+    props.isHighlighted ? `${colors.main.blue}` : ""};
   border: 1px solid;
   padding: 1px;
   ${(props) =>
-    props.outlined
+    props.isOutlined
       ? css`
           border-style: dashed;
           border-color: #84a4c9;

@@ -1,18 +1,10 @@
-import { useDoubleClick } from "@/hooks";
+import { useDoubleClick, useModal } from "@/hooks";
 import * as S from "./styled";
-import { useModal } from "@/providers";
-import { modals } from "@/components/modals";
 
-export const Icon = ({ name, ico, ref, highlighted, outlined }) => {
-  const { open, close } = useModal();
-  const { onDoubleClick } = useDoubleClick([
-    () =>
-      open(
-        modals[name],
-        { handleClose: () => close(name) },
-        { name, ico: ico }
-      ), 
-  ]);
+export const Icon = ({ config, ref, isHighlighted, isOutlined }) => {
+  const { name, ico } = config;
+  const { open } = useModal();
+  const { onDoubleClick } = useDoubleClick([() => open(name)]);
 
   return (
     <S.IconContainer
@@ -23,7 +15,7 @@ export const Icon = ({ name, ico, ref, highlighted, outlined }) => {
       }}
     >
       <S.IconImg src={ico.src} />
-      <S.IconName highlighted={highlighted} outlined={outlined}>
+      <S.IconName isHighlighted={isHighlighted} isOutlined={isOutlined}>
         {name}
       </S.IconName>
     </S.IconContainer>

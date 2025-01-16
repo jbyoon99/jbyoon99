@@ -39,16 +39,15 @@ export default function Home() {
             const { name, ico } = icon;
             return (
               <Icon
-                key={JSON.stringify(name)}
-                ico={ico}
-                name={name}
+                key={i}
+                config={config}
                 ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
-                highlighted={
+                isHighlighted={
                   selectedIcons[i] ||
                   tempSelectedIcons[i] ||
                   clickedIconIdx === i
                 }
-                outlined={prevClickedIconIdx === i}
+                isOutlined={prevClickedIconIdx === i}
               />
             );
           })}
