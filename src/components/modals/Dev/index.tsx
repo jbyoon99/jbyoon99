@@ -1,8 +1,16 @@
+import { useModal } from "@/hooks";
 import * as S from "./styled";
+import { css } from "@emotion/react";
 
-export const DevModal = ({ handleClose }) => {
+export const DevModal = ({ name, index }) => {
+  const { close } = useModal();
   return (
-    <S.Wrapper onMouseDown={(e) => e.stopPropagation()}>
+    <S.Wrapper
+      css={css`
+        z-index: ${index};
+      `}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
       <S.Header>
         <S.Title>System Properties</S.Title>
       </S.Header>
@@ -11,7 +19,7 @@ export const DevModal = ({ handleClose }) => {
         <S.Button>
           <span>OK</span>
         </S.Button>
-        <S.Button onClick={handleClose}>
+        <S.Button onClick={() => close(name)}>
           <span>Cancel</span>
         </S.Button>
         <S.Button>
