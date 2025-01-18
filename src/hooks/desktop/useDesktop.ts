@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useBlockArea } from "./";
 
 export const useDesktop = ({ desktopRef, iconsRef }) => {
@@ -12,12 +12,6 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
     current: null,
   });
   const [selectedIcons, setSelectedIcons] = useState([]);
-  const desktopHandlers = useRef({
-    mousedown: (e) => {},
-    mouseup: (e) => {},
-    mousemove: (e) => {},
-    contextmenu: (e) => {},
-  });
   const { blockAreaStyle } = useBlockArea({
     desktopRef,
     iconsRef,
@@ -76,13 +70,13 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
     };
 
     window.addEventListener("keydown", changeIcon);
-
     return () => window.removeEventListener("keydown", changeIcon);
   }, [iconsRef]);
 
   // desktop
+
   useEffect(() => {
-    const mousemove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!isDrawingBlockArea) return;
       const { clientX: x, clientY: y } = e;
       setCursorPoint((prevPoint) => {
@@ -90,11 +84,12 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
       });
     };
 
-    desktopHandlers.current["mousemove"] = mousemove;
+    window.addEventListener("mousemove", onMouseMove);
+    return () => window.removeEventListener("mousemove", onMouseMove);
   }, [isDrawingBlockArea]);
 
   useEffect(() => {
-    const mousedown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
       if (e.target?.closest("div")?.id !== "desktop") return;
       const { clientX: x, clientY: y } = e;
       setCursorPoint({ initial: { x, y }, current: { x, y } });
@@ -103,35 +98,21 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
       });
       setIsDrawingBlockArea(true);
     };
-    const mouseup = () => {
+    const onMouseUp = () => {
       setCursorPoint({ initial: null, current: null });
       setIsDrawingBlockArea(false);
     };
-    const contextmenu = (e: React.MouseEvent) => {
+    const onContextMenu = (e: React.MouseEvent) => {
       e.preventDefault();
     };
-    desktopHandlers.current["mousedown"] = mousedown;
-    desktopHandlers.current["mouseup"] = mouseup;
-    desktopHandlers.current["contextmenu"] = contextmenu;
-
-    const mouseMoveHandler = window.addEventListener("mousemove", (e) =>
-      desktopHandlers.current["mousemove"](e)
-    );
-    const mouseDownHandler = window.addEventListener("mousedown", (e) =>
-      desktopHandlers.current["mousedown"](e)
-    );
-    const mouseUpHandler = window.addEventListener("mouseup", (e) =>
-      desktopHandlers.current["mouseup"](e)
-    );
-    const contextMenuHandler = window.addEventListener("contextmenu", (e) =>
-      desktopHandlers.current["contextmenu"](e)
-    );
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("contextmenu", onContextMenu);
 
     return () => {
-      window.removeEventListener("mousemove", mouseMoveHandler);
-      window.removeEventListener("mousedown", mouseDownHandler);
-      window.removeEventListener("mouseup", mouseUpHandler);
-      window.removeEventListener("contextmenu", contextMenuHandler);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("contextmenu", onContextMenu);
     };
   }, []);
 
