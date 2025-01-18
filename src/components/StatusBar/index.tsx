@@ -8,7 +8,7 @@ export const StatusBar = () => {
   const time = useTick(get12HourTimeWithNotation, 1000);
   const {
     state: { modals },
-    bringToFront,
+    setModalFocused,
   } = useModal();
 
   return (
@@ -43,7 +43,7 @@ export const StatusBar = () => {
         {modals.map(({ name, index, ico, isFocused }) => (
           <S.TaskBarButtonContainer
             key={index}
-            onClick={() => bringToFront(name)}
+            onClick={() => setModalFocused(name)}
           >
             <S.TaskBarButton isFocused={isFocused}>
               <S.TaskIcon src={ico.src} />
