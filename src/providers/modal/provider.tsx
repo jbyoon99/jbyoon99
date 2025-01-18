@@ -7,40 +7,39 @@ const ModalContext = createContext();
 const modalReducer = (state, action) => {
   switch (action.type) {
     case "OPEN_MODAL": {
-      const newIndex = state.globalIndex + 1;
+      const newModal = {
+        name: action.name,
+        ico: modalTemplate[action.name].ico,
+        isFocused: true,
+      };
+
       return {
         modals: [
           ...state.modals.map((modal) => {
             return { ...modal, isFocused: false };
           }),
-          {
-            name: action.name,
-            index: newIndex,
-            ico: modalTemplate[action.name].ico,
-            isFocused: true,
-            initialIndex: newIndex,
-          },
+          newModal,
         ],
-        globalIndex: newIndex,
       };
     }
 
     case "CLOSE_MODAL": {
       return {
-        ...state,
         modals: state.modals.filter((modal) => modal.name !== action.name),
       };
     }
 
-    case "BRING_TO_FRONT": {
-      const newIndex = state.globalIndex + 1;
+    case "SET_MODAL_FOCUSED": {
       return {
+        ...state,
         modals: state.modals.map((modal) =>
           modal.name === action.name
-            ? { ...modal, index: newIndex, isFocused: true }
-            : { ...modal, isFocused: false }
+            ? { ...modal, isFocused: true }
+            : {
+                ...modal,
+                isFocused: false,
+              }
         ),
-        globalIndex: newIndex,
       };
     }
 
@@ -52,22 +51,21 @@ const modalReducer = (state, action) => {
 export const ModalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(modalReducer, {
     modals: [],
-    globalIndex: 0,
   });
 
   return (
     <ModalContext.Provider value={{ state, dispatch }}>
       {typeof window !== "undefined" &&
+        document.getElementById("desktop") &&
         createPortal(
-          state.modals.map(({ name, index, initialIndex }) => {
+          state.modals.map(({ name, isFocused }) => {
             const { Component, ico } = modalTemplate[name];
 
             return (
               <Component
                 name={name}
-                initialIndex={initialIndex}
-                key={index}
-                index={index}
+                key={name}
+                isFocused={isFocused}
                 ico={ico}
               />
             );
