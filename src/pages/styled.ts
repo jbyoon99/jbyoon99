@@ -2,11 +2,12 @@ import { colors } from "@/styles";
 import styled from "@emotion/styled";
 
 export const Desktop = styled.div`
-  height: 800px;
+  width: 800px;
   max-height: 100vh;
   max-width: 100vw;
   aspect-ratio: 4/3;
   background: center url("/jbyoon99_green_wallpaper.png");
+  background-size: 800px;
   border: 0.5rem solid #cecece;
   border-radius: 0.5rem;
   position: relative;
