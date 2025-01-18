@@ -74,7 +74,6 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
   }, [iconsRef]);
 
   // desktop
-
   useEffect(() => {
     const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!isDrawingBlockArea) return;
@@ -104,6 +103,7 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
     };
     const onContextMenu = (e: React.MouseEvent) => {
       e.preventDefault();
+      setIsDrawingBlockArea(false);
     };
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
