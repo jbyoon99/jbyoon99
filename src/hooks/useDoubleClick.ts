@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 export const useDoubleClick = (callbacks) => {
   const [clickCount, setClickCount] = useState(0);
 
-  const onDoubleClick = useCallback(() => {
+  const onDoubleClick = () => {
     if (clickCount === 0) {
       setClickCount(1);
       setTimeout(() => setClickCount(0), 250);
@@ -13,7 +13,7 @@ export const useDoubleClick = (callbacks) => {
 
       callbacks.forEach((fn) => fn());
     }
-  }, [clickCount, callbacks]);
+  };
 
   return { onDoubleClick };
 };
