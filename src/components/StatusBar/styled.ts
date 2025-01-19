@@ -26,23 +26,42 @@ export const TaskBar = styled.div`
   padding-bottom: 0.4rem;
 `;
 
-export const StartButton = styled.div`
+export const StartButton = styled.div<{ isStartMenuOpen: boolean }>`
+  position: relative;
   height: 100%;
-  border: 0.1rem solid;
-  border-color: #dfdfdf #808080 #808080 #dfdfdf;
-  box-shadow: 0.1rem 0 0 #000000, -0.1rem 0 0 #ffffff, 0 0.1rem 0 #000000,
-    0 -0.1rem 0 #ffffff;
   width: 6rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
+  ${(props) =>
+    props.isStartMenuOpen
+      ? css`
+          border: 0.1rem solid;
+          border-color: #808080 #dfdfdf #dfdfdf #808080;
+          box-shadow: 0.1rem 0 0 #fff, -0.1rem 0 0 #000, 0 0.1rem 0 #fff,
+            0 -0.1rem 0 #000;
+        `
+      : css`
+          border: 0.1rem solid;
+          border-color: #dfdfdf #808080 #808080 #dfdfdf;
+          box-shadow: 0.1rem 0 0 #000000, -0.1rem 0 0 #ffffff,
+            0 0.1rem 0 #000000, 0 -0.1rem 0 #ffffff;
+        `}
+
   span {
     font-family: var(--font-ms-sans-bold);
     font-size: 1.2rem;
     margin-top: 0.15rem;
   }
+`;
+
+export const Outline = styled.div`
+  width: 95%;
+  height: 90%;
+  position: absolute;
+  border: 1px dotted ${colors.main.darkGrey};
 `;
 
 export const StartIcon = styled.img`

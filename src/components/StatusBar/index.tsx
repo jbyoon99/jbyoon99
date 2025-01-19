@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { useModal, useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";
 
-export const StatusBar = () => {
+export const StatusBar = ({ isStartMenuOpen, setIsStartMenuOpen }) => {
   const time = useTick(get12HourTimeWithNotation, 1000);
   const {
     state: { modals },
@@ -14,7 +14,13 @@ export const StatusBar = () => {
   return (
     <S.StatusBar>
       <S.TaskBar>
-        <S.StartButton>
+        <S.StartButton
+          isStartMenuOpen={isStartMenuOpen}
+          onClick={() =>
+            setIsStartMenuOpen((isStartMenuOpen) => !isStartMenuOpen)
+          }
+        >
+          {isStartMenuOpen && <S.Outline />}
           <S.StartIcon src={StartIconPNG.src} />
           <span>Start</span>
         </S.StartButton>

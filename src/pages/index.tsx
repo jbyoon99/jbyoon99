@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { Icon, StatusBar } from "@/components";
+import { Icon, StartMenu, StatusBar } from "@/components";
 
 import * as S from "./styled";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDesktop } from "@/hooks";
 import { desktopIconTemplate } from "@/templates";
 
@@ -10,6 +10,7 @@ export default function Home() {
   const desktopRef = useRef<HTMLDivElement | null>(null);
   const blockAreaRef = useRef<HTMLDivElement | null>(null);
   const iconsRef = useRef<HTMLDivElement[]>([]);
+  const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
 
   const { blockAreaStyle, selectedIcons, clickedIcon } = useDesktop({
     desktopRef,
@@ -43,7 +44,14 @@ export default function Home() {
             );
           })}
         </S.IconsWrapper>
-        <StatusBar />
+        <S.Background onClick={() => setIsStartMenuOpen(false)} id="background">
+          <StartMenu isStartMenuOpen={isStartMenuOpen} />
+        </S.Background>
+
+        <StatusBar
+          isStartMenuOpen={isStartMenuOpen}
+          setIsStartMenuOpen={setIsStartMenuOpen}
+        />
       </S.Desktop>
     </>
   );
