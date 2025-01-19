@@ -1,4 +1,4 @@
-import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/icons";
+import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/ico";
 
 export const desktopIconTemplate = [
   { ico: DocumentsICO, name: "My Documents" },

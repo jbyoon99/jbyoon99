@@ -1,5 +1,5 @@
 import * as S from "./styled";
-import StartIconPNG from "@/assets/jbyoon99_start_icon.png";
+import { GithubPNG, LinkedInPNG, StartIconPNG } from "@/assets/png";
 import { css } from "@emotion/react";
 import { useModal, useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";

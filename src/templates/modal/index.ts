@@ -1,4 +1,4 @@
-import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/icons";
+import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/ico";
 import { DevModal, DirectoryModal, NotepadModal } from "@/components";
 
 export const modalTemplate = {
