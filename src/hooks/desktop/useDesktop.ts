@@ -89,7 +89,7 @@ export const useDesktop = ({ desktopRef, iconsRef }) => {
 
   useEffect(() => {
     const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target?.closest("div")?.id !== "desktop") return;
+      if (e.target?.closest("div")?.id !== "background") return;
       const { clientX: x, clientY: y } = e;
       setCursorPoint({ initial: { x, y }, current: { x, y } });
       setClickedIcon((prevIcon) => {

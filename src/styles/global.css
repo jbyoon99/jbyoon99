@@ -103,8 +103,6 @@ html {
 
 #__next {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* HTML5 display-role reset for older browsers */

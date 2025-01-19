@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const StatusBar = styled.div`
-  position: absolute;
   bottom: 0;
   width: 100%;
   background-color: #c0c0c0;
