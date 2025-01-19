@@ -36,6 +36,9 @@ module.exports = {
       },
     },
   },
+  compiler: {
+    emotion: true,
+  },
 
   // ...other config
 };
