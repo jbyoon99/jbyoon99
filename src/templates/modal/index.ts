@@ -1,8 +1,8 @@
-import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/ico";
+import { BinICO, DirectoryICO, UsersKeyIco } from "@/assets";
 import { DevModal, DirectoryModal, NotepadModal } from "@/components";
 
 export const modalTemplate = {
-  Copyrights: { Component: DevModal, ico: TopSecretICO },
-  "Recycle Bin": { Component: DevModal, ico: RecycleBinICO },
-  "My Documents": { Component: DevModal, ico: DocumentsICO },
+  Copyrights: { Component: DevModal, ico: UsersKeyIco },
+  "Recycle Bin": { Component: DevModal, ico: BinICO },
+  "My Documents": { Component: DevModal, ico: DirectoryICO },
 };

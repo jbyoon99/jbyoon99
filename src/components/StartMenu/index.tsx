@@ -1,4 +1,4 @@
-import { TopSecretICO } from "@/assets/ico";
+import { UsersKeyIco } from "@/assets";
 import * as S from "./styled";
 
 const menus = [
@@ -29,7 +29,7 @@ export const StartMenu = ({ isStartMenuOpen }) => {
       <S.MenuContainer>
         {menus.map((menu) => (
           <S.Menu key={menu}>
-            <S.MenuIcon src={TopSecretICO.src} />
+            <S.MenuIcon src={UsersKeyIco.src} />
             <S.MenuName>{menu}</S.MenuName>
           </S.Menu>
         ))}

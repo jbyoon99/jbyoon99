@@ -1,7 +1,7 @@
-import { DocumentsICO, RecycleBinICO, TopSecretICO } from "@/assets/ico";
+import { DirectoryICO, BinICO, UsersKeyIco } from "@/assets";
 
 export const desktopIconTemplate = [
-  { ico: DocumentsICO, name: "My Documents" },
-  { ico: RecycleBinICO, name: "Recycle Bin" },
-  { ico: TopSecretICO, name: "Copyrights" },
+  { ico: DirectoryICO, name: "My Documents" },
+  { ico: BinICO, name: "Recycle Bin" },
+  { ico: UsersKeyIco, name: "Copyrights" },
 ];
