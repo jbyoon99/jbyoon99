@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 export const DevModal = ({ name, isFocused }) => {
   const { close, setModalFocused } = useModal();
   const [isDragging, setIsDragging] = useState(false);
-  const [modalPosition, setModalPosition] = useState(null);
   const modalWrapperRef = useRef(null);
 
   const desktopBoundingRect = useRef(null);
@@ -42,18 +41,21 @@ export const DevModal = ({ name, isFocused }) => {
           width: mw,
           height: mh,
         } = modalWrapperRef.current.getBoundingClientRect();
+
         const { movementX, movementY } = e;
+
         let left = ml + movementX - dl - 5;
         let top = mt + movementY - dt - 5;
 
-        if (ml + movementX - dl - 5 <= dl) left = 0;
+        if (ml + movementX - 5 <= dl) left = 0;
         if (ml + movementX >= dl + dw - mw - 5) left = dw - mw - 11;
         if (mt + movementY - 5 <= dt) top = 0;
-        if (mt + mh + movementY >= dt + dh - 40) top = dh - mh - 40;
-        setModalPosition({
-          left,
-          top,
-        });
+        if (mt + mh + movementY >= dt + dh - 42) top = dh - mh - 42;
+
+        if (modalWrapperRef) {
+          modalWrapperRef.current.style.left = `${left}px`;
+          modalWrapperRef.current.style.top = `${top}px`;
+        }
       });
     };
     const onMouseUp = () => {
@@ -76,17 +78,10 @@ export const DevModal = ({ name, isFocused }) => {
 
   return (
     <S.Wrapper
+      id="modal"
       ref={modalWrapperRef}
       css={css`
         z-index: ${isFocused ? 999 : "auto"};
-
-        ${modalPosition
-          ? css`
-              left: ${modalPosition.left}px;
-              top: ${modalPosition.top}px;
-              right: 0;
-            `
-          : css``}
       `}
       onClick={() => {
         setModalFocused(name);
@@ -97,19 +92,14 @@ export const DevModal = ({ name, isFocused }) => {
       </S.Header>
       <S.Content></S.Content>
       <S.ButtonContainer>
-        <S.Button>
-          <span>OK</span>
-        </S.Button>
         <S.Button
           onClick={(e) => {
             e.stopPropagation();
             close(name);
           }}
         >
+          <S.Outline />
           <span>Cancel</span>
-        </S.Button>
-        <S.Button>
-          <span>Help</span>
         </S.Button>
       </S.ButtonContainer>
     </S.Wrapper>
