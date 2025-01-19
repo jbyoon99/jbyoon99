@@ -24,39 +24,36 @@ export const StatusBar = ({ isStartMenuOpen, setIsStartMenuOpen }) => {
           <S.StartIcon src={StartIconPNG.src} />
           <span>Start</span>
         </S.StartButton>
-        <S.DividingLine
-          css={css`
-            margin-left: 1rem;
-          `}
+
+        <S.DividingLine />
+        <S.SizingLine />
+
+        <S.Icon
+          onClick={() =>
+            window.open("https://www.linkedin.com/in/재빈-윤-801543226")
+          }
+          src={LinkedInPNG.src}
         />
-        <S.SizingLine
-          css={css`
-            margin-left: 0.3rem;
-          `}
+        <S.Icon
+          onClick={() => window.open("https://github.com/jbyoon99")}
+          src={GithubPNG.src}
         />
-        <S.Icon />
-        <S.DividingLine
-          css={css`
-            margin-left: 1rem;
-          `}
-        />
-        <S.SizingLine
-          css={css`
-            margin-left: 0.3rem;
-            margin-right: 0.5rem;
-          `}
-        />
-        {modals.map(({ name, index, ico, isFocused }) => (
-          <S.TaskBarButtonContainer
-            key={index}
-            onClick={() => setModalFocused(name)}
-          >
-            <S.TaskBarButton isFocused={isFocused}>
+
+        <S.DividingLine />
+        <S.SizingLine />
+
+        <S.TaskBarButtonContainer>
+          {modals.map(({ name, index, ico, isFocused }) => (
+            <S.TaskBarButton
+              key={index}
+              onClick={() => setModalFocused(name)}
+              isFocused={isFocused}
+            >
               <S.TaskIcon src={ico.src} />
               <S.TaskName>{name}</S.TaskName>
             </S.TaskBarButton>
-          </S.TaskBarButtonContainer>
-        ))}
+          ))}
+        </S.TaskBarButtonContainer>
       </S.TaskBar>
       <S.SystemTray>
         <S.DividingLine

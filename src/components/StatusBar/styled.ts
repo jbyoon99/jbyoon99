@@ -1,3 +1,4 @@
+import { colors } from "@/styles";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -20,7 +21,7 @@ export const TaskBar = styled.div`
   flex-direction: row;
   align-items: center;
   height: 100%;
-  width: 100%;
+  flex-grow: 1;
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
 `;
@@ -68,13 +69,17 @@ export const StartIcon = styled.img`
   margin-right: 0.4rem;
 `;
 
-export const Icon = styled.img``;
+export const Icon = styled.img`
+  height: 80%;
+  margin-right: 0.5rem;
+`;
 
 export const DividingLine = styled.div`
   height: 100%;
   border-left: 0.1rem solid #808080;
   border-right: 0.1rem solid #ffffff;
   background-color: white;
+  margin-left: 1rem;
 `;
 
 export const SizingLine = styled.div`
@@ -83,12 +88,16 @@ export const SizingLine = styled.div`
   width: 0.1rem;
   background-color: #d2d2d2;
   border-color: #ffffff #808080 #808080 #ffffff;
+  margin-left: 0.3rem;
+  margin-right: 0.5rem;
 `;
 
 export const TaskBarButtonContainer = styled.div`
   display: flex;
   height: 100%;
-  width: 100%;
+  flex-grow: 1;
+  max-width:100%
+  justify-content: flex-start;
 `;
 
 export const TaskBarButton = styled.div<{ isFocused: boolean }>`
@@ -131,10 +140,10 @@ export const TaskIcon = styled.img`
 `;
 
 export const TaskName = styled.div`
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  word-wrap: break-word;
   flex-shrink: 1;
 `;
 
@@ -147,11 +156,10 @@ export const TrayContainer = styled.div`
   border: 0.1rem solid;
   border-color: #808080 #ffffff #ffffff #808080;
   height: 2.4rem;
-  width: 10rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 1rem;
+  // padding-right: 1rem;
 `;
 
 export const Time = styled.span`
