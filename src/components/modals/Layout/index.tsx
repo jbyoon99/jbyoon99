@@ -1,25 +1,12 @@
-import {
-  BinICO,
-  DirectoryICO,
-  NotepadICO,
-  UnderBarPNG,
-  WindowPNG,
-  XPNG,
-} from "@/assets";
+import { UnderBarPNG, WindowPNG, XPNG } from "@/assets";
 import * as S from "./styled";
 import { useDrag, useModal } from "@/hooks";
 import { css } from "@emotion/react";
 import { useRef } from "react";
 
-const modalVariant = {
-  notepad: { ico: NotepadICO.src },
-  directory: { ico: DirectoryICO.src },
-  bin: { ico: BinICO.src },
-};
-
 export const ModalLayout = ({
   name = "Untitled - Notepad",
-  variant = "directory",
+  ico,
   isFocused,
   children,
 }) => {
@@ -41,7 +28,7 @@ export const ModalLayout = ({
       <S.Wrapper>
         <S.Header onMouseDown={onMouseDown}>
           <S.Title>
-            <S.Icon src={modalVariant[variant]["ico"]} />
+            <S.Icon src={ico.src} />
             <S.Name>{name}</S.Name>
           </S.Title>
           <S.ButtonContainer>

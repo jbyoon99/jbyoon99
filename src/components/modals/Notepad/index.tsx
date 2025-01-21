@@ -1,9 +1,9 @@
 import * as S from "./styled";
 import { ModalLayout } from "../Layout";
 
-export const NotepadModal = (props) => {
+export const NotepadModal = ({ name, content, isFocused, ico }) => {
   return (
-    <ModalLayout variant="notepad" {...props}>
+    <ModalLayout name={name} isFocused={isFocused} ico={ico}>
       <S.Toolbar>
         <span>
           <u>F</u>ile
@@ -19,7 +19,7 @@ export const NotepadModal = (props) => {
         </span>
       </S.Toolbar>
       <S.Container>
-        <S.Content></S.Content>
+        <S.Content>{content}</S.Content>
       </S.Container>
     </ModalLayout>
   );
