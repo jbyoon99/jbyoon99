@@ -7,10 +7,14 @@ const ModalContext = createContext();
 const modalReducer = (state, action) => {
   switch (action.type) {
     case "OPEN_MODAL": {
+      const { Component, ico, content } = modalTemplate[action.name];
+
       const newModal = {
         name: action.name,
-        ico: modalTemplate[action.name].ico,
         isFocused: true,
+        Component,
+        ico,
+        content,
       };
 
       return {
@@ -58,15 +62,15 @@ export const ModalProvider = ({ children }) => {
       {typeof window !== "undefined" &&
         document.getElementById("desktop") &&
         createPortal(
-          state.modals.map(({ name, isFocused }) => {
-            const { Component, ico } = modalTemplate[name];
-
+          state.modals.map((modal) => {
+            const { Component, name, content, isFocused, ico } = modal;
             return (
               <Component
-                name={name}
                 key={name}
-                isFocused={isFocused}
+                name={name}
                 ico={ico}
+                isFocused={isFocused}
+                content={content}
               />
             );
           }),
