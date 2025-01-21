@@ -24,7 +24,7 @@ export const Content = styled.div`
   padding: 1rem;
   font-size: 2rem;
   font-family: var(--font-ms-sans);
-  user-select: text;
+  user-select: none;
 `;
 
 export const ScrollBar = styled.div<{ isHorizontal: boolean }>`
