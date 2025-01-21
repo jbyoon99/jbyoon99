@@ -2,9 +2,9 @@ import { colors } from "@/styles";
 import styled from "@emotion/styled";
 
 export const Desktop = styled.div`
-  height: 90rem;
+  height: 60rem;
   aspect-ratio: 4/3;
-  width: 120rem;
+  width: 80rem;
   border: 0.5rem solid #cecece;
   border-radius: 0.5rem;
   position: relative;
