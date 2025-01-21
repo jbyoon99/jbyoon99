@@ -1,5 +1,5 @@
 import * as S from "./styled";
-import { GithubPNG, LinkedInPNG, StartIconPNG } from "@/assets/png";
+import { GithubPNG, LinkedInPNG, JByoonSmallLogoPNG } from "@/assets/png";
 import { css } from "@emotion/react";
 import { useModal, useTick } from "@/hooks";
 import { get12HourTimeWithNotation } from "@/utils/get12HourTimeWithNotation";
@@ -21,7 +21,7 @@ export const StatusBar = ({ isStartMenuOpen, setIsStartMenuOpen }) => {
           }
         >
           {isStartMenuOpen && <S.Outline />}
-          <S.StartIcon src={StartIconPNG.src} />
+          <S.StartIcon src={JByoonSmallLogoPNG.src} />
           <span>Start</span>
         </S.StartButton>
 
