@@ -6,15 +6,17 @@ import { useRef, useState } from "react";
 import { useDesktop } from "@/hooks";
 import { desktopIconTemplate } from "@/templates";
 
-export default function Home() {
-  const desktopRef = useRef<HTMLDivElement | null>(null);
-  const blockAreaRef = useRef<HTMLDivElement | null>(null);
+export default function JByoon99() {
+  const backgroundRef = useRef<HTMLDivElement | null>(null);
+  const dragAreaRef = useRef<HTMLDivElement | null>(null);
   const iconsRef = useRef<HTMLDivElement[]>([]);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
 
-  const { blockAreaStyle, selectedIcons, clickedIcon } = useDesktop({
-    desktopRef,
+  const { selectedIcons, clickedIcon } = useDesktop({
+    backgroundRef,
+    dragAreaRef,
     iconsRef,
+    iconData: desktopIconTemplate,
   });
 
   return (
@@ -29,22 +31,28 @@ export default function Home() {
         <link rel="icon" href="/jbyoon99_logo.ico" />
       </Head>
 
-      <S.Desktop id="desktop" ref={desktopRef}>
-        <S.BlockArea ref={blockAreaRef} style={{ ...blockAreaStyle }} />
+      <S.Desktop id="desktop">
+        <S.DragArea ref={dragAreaRef} />
         <S.IconsWrapper>
-          {desktopIconTemplate.map((config, i) => {
+          {desktopIconTemplate.map((config, idx) => {
             return (
               <Icon
-                key={i}
+                key={idx}
                 config={config}
-                ref={(r: HTMLDivElement) => (iconsRef.current[i] = r)}
-                isHighlighted={selectedIcons[i] || clickedIcon.current === i}
-                isOutlined={clickedIcon.initial === i}
+                ref={(r: HTMLDivElement) => (iconsRef.current[idx] = r)}
+                isHighlighted={
+                  selectedIcons[idx] || clickedIcon.current === idx
+                }
+                isOutlined={clickedIcon.initial === idx}
               />
             );
           })}
         </S.IconsWrapper>
-        <S.Background onClick={() => setIsStartMenuOpen(false)} id="background">
+        <S.Background
+          ref={backgroundRef}
+          onClick={() => setIsStartMenuOpen(false)}
+          id="background"
+        >
           <StartMenu isStartMenuOpen={isStartMenuOpen} />
         </S.Background>
 

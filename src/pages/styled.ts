@@ -32,7 +32,7 @@ export const IconsWrapper = styled.div`
   z-index: 1;
 `;
 
-export const BlockArea = styled.div`
+export const DragArea = styled.div`
   position: absolute;
   background-color: ${colors.main.blue};
   opacity: 0.5;
