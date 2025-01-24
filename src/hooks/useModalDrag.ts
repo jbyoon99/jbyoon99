@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useDrag = ({ modalWrapperRef }) => {
+export const useModalDrag = ({ modalRef }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const desktopBoundingRect = useRef(null);
+  const backgroundPosition = useRef(null);
 
   useEffect(() => {
     const updateDesktopPosition = () => {
-      desktopBoundingRect.current = document
-        .getElementById("desktop")
+      backgroundPosition.current = document
+        .getElementById("background")
         .getBoundingClientRect();
     };
 
@@ -20,36 +20,36 @@ export const useDrag = ({ modalWrapperRef }) => {
   }, []);
 
   useEffect(() => {
-    if (!isDragging || !modalWrapperRef) return;
+    if (!isDragging || !modalRef) return;
     const onMouseMove = (e) => {
+      const modal = modalRef.current;
+
       requestAnimationFrame(() => {
         const {
-          left: dl,
-          top: dt,
-          width: dw,
-          height: dh,
-        } = desktopBoundingRect.current;
+          left: bl,
+          right: br,
+          top: bt,
+          bottom: bb,
+        } = backgroundPosition.current;
         const {
           left: ml,
           top: mt,
-          width: mw,
-          height: mh,
-        } = modalWrapperRef.current.getBoundingClientRect();
+          width: modalWidth,
+          height: modalHeight,
+        } = modal.getBoundingClientRect();
 
         const { movementX, movementY } = e;
 
-        let left = ml + movementX - dl - 5;
-        let top = mt + movementY - dt - 5;
+        let newLeft = ml + movementX - bl;
+        let newTop = mt + movementY - bt;
 
-        if (ml + movementX - 5 <= dl) left = 0;
-        if (ml + movementX >= dl + dw - mw - 5) left = dw - mw - 11;
-        if (mt + movementY - 5 <= dt) top = 0;
-        if (mt + mh + movementY >= dt + dh - 42) top = dh - mh - 42;
+        if (newLeft <= 0) newLeft = 0;
+        if (newLeft + modalWidth >= br - bl) newLeft = br - modalWidth - bl;
+        if (newTop <= 0) newTop = 0;
+        if (newTop + modalHeight >= bb - bt) newTop = bb - modalHeight - bt;
 
-        if (modalWrapperRef) {
-          modalWrapperRef.current.style.left = `${left}px`;
-          modalWrapperRef.current.style.top = `${top}px`;
-        }
+        modal.style.left = `${newLeft}px`;
+        modal.style.top = `${newTop}px`;
       });
     };
     const onMouseUp = () => {
@@ -63,7 +63,7 @@ export const useDrag = ({ modalWrapperRef }) => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [isDragging, modalWrapperRef]);
+  }, [isDragging, modalRef, backgroundPosition]);
 
   const onMouseDown = () => {
     setIsDragging(true);
