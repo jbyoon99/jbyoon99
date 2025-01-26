@@ -3,23 +3,22 @@ import { useEffect } from "react";
 export const useIconClick = ({ iconsRef, iconData, setClickedIcon }) => {
   useEffect(() => {
     if (!iconsRef) return;
+    const icons = iconsRef.current;
 
     const onClick = (idx) => {
       setClickedIcon({ initial: idx, current: idx });
     };
 
-    const iconHandlers = iconsRef.current.map((_, idx) => {
+    const iconHandlers = icons.map((_, idx) => {
       return () => onClick(idx);
     });
 
-    iconsRef.current.forEach((icon, idx) =>
+    icons.forEach((icon, idx) =>
       icon.addEventListener("click", iconHandlers[idx])
     );
 
-    const iconData = iconsRef.current;
-
     return () =>
-      iconData.forEach(
+      icons.forEach(
         (icon, idx) =>
           icon && icon.removeEventListener("click", iconHandlers[idx])
       );
