@@ -1,39 +1,35 @@
 import * as S from "./styled";
 import { ModalLayout } from "../Layout";
-import { JByoonLogoICO } from "@/assets";
-
-const options = [
-  <S.Option key={1}>
-    <u>F</u>ile
-  </S.Option>,
-  <S.Option key={2}>
-    <u>E</u>dit
-  </S.Option>,
-  <S.Option key={3}>
-    <u>V</u>iew
-  </S.Option>,
-  <S.Option key={4}>
-    <u>G</u>o
-  </S.Option>,
-  <S.Option key={5}>
-    F<u>a</u>vorites
-  </S.Option>,
-  <S.Option key={6}>
-    <u>H</u>elp
-  </S.Option>,
-];
+import { recycleBinTemplate } from "@/templates/recycleBin";
+import { Icon } from "@/components/Icon";
+import { useRef, useState } from "react";
+import { useIconClick } from "@/hooks";
 
 export const DirectoryModal = (props) => {
+  const [clickedIcon, setClickedIcon] = useState({
+    current: null,
+    initial: null,
+  });
+  const iconsRef = useRef([]);
+  useIconClick({ iconsRef, iconData: recycleBinTemplate, setClickedIcon });
+
   return (
     <ModalLayout variant="notepad" {...props}>
-      <S.Toolbar>
-        <S.OptionContainer>{options.map((option) => option)}</S.OptionContainer>
-        <S.LogoContainer>
-          <S.Logo src={JByoonLogoICO.src} />
-        </S.LogoContainer>
-      </S.Toolbar>
       <S.Container>
-        <S.Content></S.Content>
+        <S.Content>
+          {recycleBinTemplate.map((icon, idx) => {
+            const { name, ico } = icon;
+            return (
+              <Icon
+                ref={(ref) => (iconsRef.current[idx] = ref)}
+                key={name}
+                config={{ name, ico }}
+                isHighlighted={clickedIcon.current === idx}
+                isOutlined={clickedIcon.initial === idx}
+              />
+            );
+          })}
+        </S.Content>
       </S.Container>
     </ModalLayout>
   );
