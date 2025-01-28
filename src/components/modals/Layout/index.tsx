@@ -1,29 +1,33 @@
 import { UnderBarPNG, WindowPNG, XPNG } from "@/assets";
 import * as S from "./styled";
-import { useDrag, useModal } from "@/hooks";
+import { useModalDrag, useModal } from "@/hooks";
 import { css } from "@emotion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-export const ModalLayout = ({
-  name = "Untitled - Notepad",
-  ico,
-  isFocused,
-  children,
-}) => {
+export const ModalLayout = ({ name, ico, isFocused, children }) => {
   const { close, setModalFocused } = useModal();
-  const modalWrapperRef = useRef(null);
-  const { onMouseDown } = useDrag({ modalWrapperRef });
+  const modalRef = useRef(null);
+  const { onMouseDown } = useModalDrag({ modalRef });
+
+  const clickHandler = () => {
+    setModalFocused(name);
+  };
+
+  useEffect(() => {
+    if (!modalRef) return;
+    const modal = modalRef.current;
+    const { width, height } = modal.getBoundingClientRect();
+    modal.style.left = `calc(50% - ${width / 2}px)`;
+    modal.style.top = `calc(50% - ${height / 2}px)`;
+  }, [modalRef]);
 
   return (
     <S.BorderWrapper
       css={css`
         z-index: ${isFocused ? 9999 : 2};
       `}
-      id="modal"
-      ref={modalWrapperRef}
-      onClick={() => {
-        setModalFocused(name);
-      }}
+      ref={modalRef}
+      onClick={clickHandler}
     >
       <S.Wrapper>
         <S.Header onMouseDown={onMouseDown}>
