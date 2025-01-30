@@ -1,5 +1,5 @@
-import * as S from "./styled";
-import { ModalLayout } from "../Layout";
+import * as S from "../../modals/Notepad/styled";
+import { ModalLayout } from "../../system-ui/Windows";
 
 export const NotepadModal = ({ name, content, isFocused, ico }) => {
   return (

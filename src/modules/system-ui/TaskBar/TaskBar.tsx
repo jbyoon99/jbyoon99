@@ -1,4 +1,4 @@
-import * as S from "./styled";
+import * as S from "../StatusBar/TasBar.styled";
 import { GithubPNG, LinkedInPNG, JByoonSmallLogoPNG } from "@/assets/png";
 import { css } from "@emotion/react";
 import { useModal, useTick } from "@/hooks";

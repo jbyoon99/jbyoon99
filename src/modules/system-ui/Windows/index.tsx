@@ -1,5 +1,5 @@
 import { UnderBarPNG, WindowPNG, XPNG } from "@/assets";
-import * as S from "./styled";
+import * as S from "../../modals/Layout/styled";
 import { useModalDrag, useModal } from "@/hooks";
 import { css } from "@emotion/react";
 import { useEffect, useRef } from "react";

@@ -1,5 +1,5 @@
 import { UsersKeyIco } from "@/assets";
-import * as S from "./styled";
+import * as S from "./StartMenu.styled";
 
 const menus = [
   "Windows Update",

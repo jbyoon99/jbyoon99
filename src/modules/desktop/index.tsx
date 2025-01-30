@@ -1,9 +1,8 @@
-import { Icon, StartMenu, StatusBar } from "@/components";
+import { Icon, StartMenu, StatusBar } from "@/modules";
 
 import * as S from "./styled";
 import { useRef, useState } from "react";
 import { useDesktop } from "@/hooks";
-import { desktopIconTemplate } from "@/templates";
 
 export const JByoon99 = () => {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
@@ -14,8 +13,6 @@ export const JByoon99 = () => {
   const { selectedIcons, clickedIcon } = useDesktop({
     backgroundRef,
     dragAreaRef,
-    iconsRef,
-    iconData: desktopIconTemplate,
   });
 
   return (

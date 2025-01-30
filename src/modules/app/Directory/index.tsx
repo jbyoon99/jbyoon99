@@ -1,7 +1,7 @@
-import * as S from "./styled";
-import { ModalLayout } from "../Layout";
+import * as S from "../../modals/Directory/styled";
+import { ModalLayout } from "../../system-ui/Windows";
 import { recycleBinTemplate } from "@/templates/recycleBin";
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/modules/system-ui/Icon";
 import { useRef, useState } from "react";
 import { useIconClick } from "@/hooks";
 
