@@ -1,6 +1,6 @@
 import { IconList, TaskBar } from "modules/JByoon99/system-ui";
 import * as S from "./styled";
-import { msSans, msSansBold, libre } from "styles";
+import { msSans, msSansBold, libre } from "assets/fonts";
 
 export const JByoon99 = () => {
   return (
