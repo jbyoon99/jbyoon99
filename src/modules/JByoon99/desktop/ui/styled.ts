@@ -21,20 +21,3 @@ export const Background = styled.div`
   position: relative;
   overflow: hidden;
 `;
-
-export const IconsWrapper = styled.div`
-  position: absolute;
-  display: grid;
-  grid-auto-rows: min-content;
-  grid-gap: 1.5rem 0.5rem;
-  left: 0.5rem;
-  top: 0.5rem;
-  z-index: 1;
-`;
-
-export const DragArea = styled.div`
-  position: absolute;
-  background-color: ${colors.main.blue};
-  opacity: 0.5;
-  z-index: 1;
-`;

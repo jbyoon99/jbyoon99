@@ -1,5 +1,4 @@
 import { colors } from "styles";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const IconContainer = styled.div`
@@ -15,26 +14,23 @@ export const IconImg = styled.img`
   margin-bottom: 0.4rem;
 `;
 
-export const IconName = styled.div<{
-  isHighlighted: boolean;
-  isOutlined: boolean;
-}>`
+export const IconName = styled.div`
+  // }> //   isOutlined: boolean; //   isHighlighted: boolean; // <{
   color: ${colors.main.white};
   font-family: var(--font-ms-sans);
   font-size: 1.2rem;
   text-align: center;
-
-  background-color: ${(props) =>
-    props.isHighlighted ? `${colors.main.blue}` : ""};
-  border: 1px solid;
   padding: 1px;
-  ${(props) =>
-    props.isOutlined
-      ? css`
-          border-style: dashed;
-          border-color: #84a4c9;
-        `
-      : css`
-          border-color: transparent;
-        `}
 `;
+
+// background-color: ${(props) =>
+//     props.isHighlighted ? `${colors.main.blue}` : ""};
+//   ${(props) =>
+//     props.isOutlined
+//       ? css`
+//           border-style: dashed;
+//           border-color: #84a4c9;
+//         `
+//       : css`
+//           border-color: transparent;
+//         `}
