@@ -1,1 +1,1 @@
-export * from "./ui/Notepad";
+export * from "./ui";

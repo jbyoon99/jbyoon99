@@ -1,4 +1,4 @@
-import * as S from "./Directory.styled";
+import * as S from "./styled";
 
 export const Directory = () => {
   return (
