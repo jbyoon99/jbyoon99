@@ -1,4 +1,4 @@
-import { colors } from "styles";
+import { colors } from "assets/colors";
 import styled from "@emotion/styled";
 
 export const BorderWrapper = styled.div`

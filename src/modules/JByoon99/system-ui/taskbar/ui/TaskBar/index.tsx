@@ -1,10 +1,12 @@
-import * as S from "./TaskBar.styled";
+import * as S from "./styled";
 import { GithubPNG, LinkedInPNG, JByoonSmallLogoPNG } from "assets/png";
 import { css } from "@emotion/react";
-import { useTick } from "../hook";
+import { useTick } from "../../hook";
 import { get12HourTimeWithNotation } from "utils/get12HourTimeWithNotation";
+import { useState } from "react";
 
-export const TaskBar = ({ isStartMenuOpen, setIsStartMenuOpen }) => {
+export const TaskBar = () => {
+  const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const time = useTick(get12HourTimeWithNotation, 1000);
 
   return (

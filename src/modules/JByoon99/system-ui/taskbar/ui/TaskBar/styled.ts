@@ -1,4 +1,4 @@
-import { colors } from "styles";
+import { colors } from "assets/colors";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 

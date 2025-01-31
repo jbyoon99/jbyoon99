@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles";
+import { colors } from "assets/colors";
 
 export const DragArea = styled.div`
   position: absolute;
