@@ -2,7 +2,7 @@ import * as S from "./styled";
 import { GithubPNG, LinkedInPNG, JByoonSmallLogoPNG } from "assets/png";
 import { css } from "@emotion/react";
 import { useTick } from "../../hook";
-import { get12HourTimeWithNotation } from "utils/get12HourTimeWithNotation";
+import { get12HourTimeWithNotation } from "../../util";
 import { useState } from "react";
 
 export const TaskBar = () => {
