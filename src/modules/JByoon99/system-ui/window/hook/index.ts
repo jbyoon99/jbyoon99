@@ -1,2 +1,2 @@
-export * from "./useModal";
-export * from "./useModalDrag";
+export * from "./useWindow";
+export * from "./useWindowDrag";

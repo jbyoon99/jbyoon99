@@ -1,7 +1,7 @@
 import { useModalContext } from "../store";
 import { useCallback } from "react";
 
-export const useModal = () => {
+export const useWindow = () => {
   const { state, dispatch } = useModalContext();
 
   const setModalFocused = useCallback(

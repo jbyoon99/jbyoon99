@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useModalDrag = ({ modalRef }) => {
+export const useWindowDrag = ({ windowRef }) => {
   const [isDragging, setIsDragging] = useState(false);
   const backgroundPosition = useRef(null);
 
@@ -20,37 +20,35 @@ export const useModalDrag = ({ modalRef }) => {
   }, []);
 
   useEffect(() => {
-    if (!isDragging || !modalRef) return;
+    if (!isDragging || !windowRef) return;
     const onMouseMove = (e) => {
-      const modal = modalRef.current;
+      const modal = windowRef.current;
 
-      requestAnimationFrame(() => {
-        const {
-          left: bl,
-          right: br,
-          top: bt,
-          bottom: bb,
-        } = backgroundPosition.current;
-        const {
-          left: ml,
-          top: mt,
-          width: modalWidth,
-          height: modalHeight,
-        } = modal.getBoundingClientRect();
+      const {
+        left: bl,
+        right: br,
+        top: bt,
+        bottom: bb,
+      } = backgroundPosition.current;
+      const {
+        left: ml,
+        top: mt,
+        width: modalWidth,
+        height: modalHeight,
+      } = modal.getBoundingClientRect();
 
-        const { movementX, movementY } = e;
+      const { movementX, movementY } = e;
 
-        let newLeft = ml + movementX - bl;
-        let newTop = mt + movementY - bt;
+      let newLeft = ml + movementX - bl;
+      let newTop = mt + movementY - bt;
 
-        if (newLeft <= 0) newLeft = 0;
-        if (newLeft + modalWidth >= br - bl) newLeft = br - modalWidth - bl;
-        if (newTop <= 0) newTop = 0;
-        if (newTop + modalHeight >= bb - bt) newTop = bb - modalHeight - bt;
+      if (newLeft <= 0) newLeft = 0;
+      if (newLeft + modalWidth >= br - bl) newLeft = br - modalWidth - bl;
+      if (newTop <= 0) newTop = 0;
+      if (newTop + modalHeight >= bb - bt) newTop = bb - modalHeight - bt;
 
-        modal.style.left = `${newLeft}px`;
-        modal.style.top = `${newTop}px`;
-      });
+      modal.style.left = `${newLeft}px`;
+      modal.style.top = `${newTop}px`;
     };
     const onMouseUp = () => {
       setIsDragging(false);
@@ -63,7 +61,7 @@ export const useModalDrag = ({ modalRef }) => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [isDragging, modalRef, backgroundPosition]);
+  }, [isDragging, windowRef, backgroundPosition]);
 
   const onMouseDown = () => {
     setIsDragging(true);
